@@ -12,23 +12,23 @@ export default function DeleteWorkerButton({
 
     if (!confirmDelete) return;
 
-    const response = await fetch(
-      "/api/delete-worker",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      }
-    );
+    const response = await fetch("/api/delete-worker", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id }),
+    });
 
     const result = await response.json();
 
+    console.log(result);
+
     if (result.success) {
+      alert("Worker deleted successfully");
       window.location.reload();
     } else {
-      alert("Worker deleted successfully");
+      alert(result.error);
     }
   }
 
