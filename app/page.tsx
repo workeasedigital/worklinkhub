@@ -2,7 +2,6 @@ import HomeContent from "../components/HomeContent";
 import Stats from "../components/Stats";
 import LatestWorkers from "../components/LatestWorkers";
 import LatestJobs from "../components/LatestJobs";
-
 export default function Home() {
   return (
     <>
