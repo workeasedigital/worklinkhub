@@ -1,20 +1,32 @@
 import { NextResponse } from "next/server";
 
-export async function POST() {
+async function sendNotification() {
   const response = await fetch("https://ntfy.sh/worklinkhub-admin", {
     method: "POST",
     headers: {
-      Title: "TEST",
+      Title: "👀 Visitor",
       Priority: "5",
     },
-    body: "This is a test notification",
+    body: "Someone opened WorkLinkHub",
   });
 
-  const text = await response.text();
+  return response.status;
+}
+
+export async function GET() {
+  const status = await sendNotification();
 
   return NextResponse.json({
-    status: response.status,
-    statusText: response.statusText,
-    body: text,
+    success: true,
+    status,
+  });
+}
+
+export async function POST() {
+  const status = await sendNotification();
+
+  return NextResponse.json({
+    success: true,
+    status,
   });
 }
