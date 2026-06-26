@@ -1,18 +1,29 @@
 import { NextResponse } from "next/server";
 
 export async function POST() {
+  console.log("VISITOR API CALLED");
+
   try {
-    await fetch("https://ntfy.sh/worklinkhub-admin", {
+    const response = await fetch("https://ntfy.sh/worklinkhub-admin", {
       method: "POST",
       headers: {
         Title: "👀 New Visitor",
         Priority: "3",
       },
-      body: " 👀 Someone opened WorkLinkHub",
+      body: "👀 Someone opened WorkLinkHub",
     });
 
-    return NextResponse.json({ success: true });
-  } catch {
-    return NextResponse.json({ success: false });
+    console.log("ntfy status:", response.status);
+
+    return NextResponse.json({
+      success: true,
+      status: response.status,
+    });
+  } catch (err) {
+    console.error(err);
+
+    return NextResponse.json({
+      success: false,
+    });
   }
 }
