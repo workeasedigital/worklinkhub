@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "../context/LanguageContext";
 import LanguageSwitcher from "../components/LanguageSwitcher";
@@ -30,7 +30,11 @@ export default function Home() {
     "Welders",
     "Beauty Services",
   ];
-
+useEffect(() => {
+  fetch("/api/notify-visit", {
+    method: "POST",
+  });
+}, []);
   return (
     <main className="min-h-screen bg-white text-gray-900">
      {/* Navbar */}
