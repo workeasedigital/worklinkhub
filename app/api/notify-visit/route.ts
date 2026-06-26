@@ -5,7 +5,7 @@ async function sendNotification() {
     method: "POST",
     headers: {
       Title: "👀 Visitor",
-      Priority: "5",
+      
     },
     body: "Someone opened WorkLinkHub",
   });
