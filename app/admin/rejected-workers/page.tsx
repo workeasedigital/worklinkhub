@@ -1,5 +1,5 @@
 import { supabase } from "../../../lib/supabase";
-
+export const dynamic = "force-dynamic";
 export default async function RejectedWorkersPage() {
   const { data: workers } = await supabase
     .from("workers")

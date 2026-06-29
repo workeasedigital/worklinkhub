@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { supabase } from "../../../lib/supabase";
 import DeleteWorkerButton from "../../../components/DeleteWorkerButton";
+export const dynamic = "force-dynamic";
 export default async function AdminWorkersPage() {
   const { data: workers } = await supabase
     .from("workers")

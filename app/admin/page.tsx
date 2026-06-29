@@ -4,6 +4,7 @@ import { ADMIN_EMAIL } from "../../lib/admin";
 import { cookies } from "next/headers";
 import ApproveWorkerButton from "../../components/ApproveWorkerButton";
 import RejectWorkerButton from "../../components/RejectWorkerButton";
+export const dynamic = "force-dynamic";
 export default async function AdminPage() 
 {
   const { data: workers } = await supabase

@@ -1,10 +1,11 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 export default function DeleteWorkerButton({
   id,
 }: {
   id: number | string;
 }) {
+  const router = useRouter();
   async function deleteWorker() {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this worker?"
@@ -26,7 +27,7 @@ export default function DeleteWorkerButton({
 
     if (result.success) {
       alert("Worker deleted successfully");
-      window.location.reload();
+      router.refresh();
     } else {
       alert(result.error);
     }

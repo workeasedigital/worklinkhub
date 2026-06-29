@@ -1,10 +1,11 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 export default function ApproveWorkerButton({
   id,
 }: {
   id: number;
 }) {
+  const router = useRouter();
   async function approveWorker() {
     const response = await fetch(
       "/api/approve-worker",
@@ -25,7 +26,7 @@ export default function ApproveWorkerButton({
 
     if (result.success) {
       alert("Worker Approved");
-      window.location.reload();
+      router.refresh();
     } else {
       alert("Approval Failed");
     }
