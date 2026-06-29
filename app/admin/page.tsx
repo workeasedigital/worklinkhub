@@ -37,13 +37,18 @@ const { data: rejectedWorkers } = await supabase
 
       {/* Header */}
       <div className="bg-gray-900 text-white py-6 shadow-lg">
-        <div className="max-w-7xl mx-auto px-6">
-          <h1 className="text-3xl font-bold text-orange-500">
-            WorkLinkHub Admin
-          </h1>
-            <AdminLogoutButton />
-        </div>
-      </div>
+  <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+
+    <h1 className="text-3xl font-bold text-orange-500">
+      WorkLinkHub Admin
+    </h1>
+
+    <div className="flex justify-end">
+      <AdminLogoutButton />
+    </div>
+
+  </div>
+</div>
 
       <section className="max-w-7xl mx-auto p-6">
 
