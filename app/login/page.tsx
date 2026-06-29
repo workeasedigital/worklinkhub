@@ -58,7 +58,20 @@ setLoading(false);
 
 
 }
+<div className="flex justify-between items-center mb-8">
 
+  <h1 className="text-3xl font-bold text-orange-500">
+    WorkLinkHub
+  </h1>
+
+  <a
+    href="/"
+    className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-lg font-semibold"
+  >
+    🏠 Home
+  </a>
+
+</div>
 return ( <main className="min-h-screen bg-gray-50 flex items-center justify-center px-6"> <div className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md"> <h1 className="text-3xl font-bold text-center text-orange-500 mb-6">
 Login </h1>
 

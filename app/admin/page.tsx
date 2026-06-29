@@ -40,6 +40,12 @@ const { data: rejectedWorkers } = await supabase
           <h1 className="text-3xl font-bold text-orange-500">
             WorkLinkHub Admin
           </h1>
+          <a
+      href="/login"
+      className="bg-red-500 hover:bg-red-600 px-5 py-2 rounded-lg font-semibold transition"
+    >
+      Logout
+    </a>
         </div>
       </div>
 
