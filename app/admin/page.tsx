@@ -36,17 +36,22 @@ const { data: rejectedWorkers } = await supabase
     <main className="min-h-screen bg-slate-100">
 
       {/* Header */}
-      <div className="bg-gray-900 text-white py-6 shadow-lg">
-  <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-
-    <h1 className="text-3xl font-bold text-orange-500">
+      <div className="bg-gray-900 text-white p-6">
+  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+    <h1 style={{ color: "orange", fontSize: "32px", fontWeight: "bold" }}>
       WorkLinkHub Admin
     </h1>
 
-    <div className="flex justify-end">
-      <AdminLogoutButton />
-    </div>
-
+    <button
+      style={{
+        background: "red",
+        color: "white",
+        padding: "10px 20px",
+        borderRadius: "8px",
+      }}
+    >
+      Logout
+    </button>
   </div>
 </div>
 
