@@ -39,7 +39,7 @@ export default function WorkerPaymentPage() {
         </p>
 
         <p className="text-center text-orange-600 font-semibold mb-6">
-          workeasedigital@okaxis
+          worklinkhub@nyes
         </p>
 
         <input
