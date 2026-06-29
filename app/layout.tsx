@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { LanguageProvider } from "../context/LanguageContext";
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -17,6 +18,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "WorkLinkHub",
   description: "Find Workers and Jobs",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
