@@ -37,21 +37,24 @@ const { data: rejectedWorkers } = await supabase
 
       {/* Header */}
       <div className="bg-gray-900 text-white p-6">
-  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-    <h1 style={{ color: "orange", fontSize: "32px", fontWeight: "bold" }}>
+  <div
+    style={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    }}
+  >
+    <h1
+      style={{
+        color: "#f97316",
+        fontSize: "32px",
+        fontWeight: "bold",
+      }}
+    >
       WorkLinkHub Admin
     </h1>
 
-    <button
-      style={{
-        background: "red",
-        color: "white",
-        padding: "10px 20px",
-        borderRadius: "8px",
-      }}
-    >
-      Logout
-    </button>
+    <AdminLogoutButton />
   </div>
 </div>
 
