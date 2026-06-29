@@ -146,6 +146,12 @@ const { data: rejectedWorkers } = await supabase
   >
     View Jobs
   </a>
+  <a
+  href="/admin/payments"
+  className="bg-yellow-500 text-white p-4 rounded-xl text-center font-bold"
+>
+  💰 Payments
+</a>
 </div>
 
 <div className="bg-white rounded-2xl shadow-lg p-6 mb-10">
@@ -178,9 +184,9 @@ const { data: rejectedWorkers } = await supabase
 >
   View Details
 </a>
-  <ApproveWorkerButton id={worker.id} />
-
-  <RejectWorkerButton id={worker.id} />
+  <ApproveWorkerButton id={worker.id} /> /n <RejectWorkerButton id={worker.id} />
+ 
+  
 </div>
       </div>
     ))

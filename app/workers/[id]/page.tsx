@@ -12,6 +12,7 @@ export default async function WorkerDetails({
     .select("*")
     .eq("id", id)
     .single();
+    const isUnlocked = false;
 
   if (!worker || error) {
     return (
@@ -86,15 +87,31 @@ export default async function WorkerDetails({
                   {worker.experience} Years
                 </p>
               </div>
-
               <div className="bg-gray-50 p-5 rounded-xl shadow-sm">
-                <h3 className="font-bold text-lg mb-2">
-                  Contact Number
-                </h3>
+                <div className="bg-gray-50 p-5 rounded-xl shadow-sm">
+  <h3 className="font-bold text-lg mb-2">
+    Contact Number
+  </h3>
 
-                <p className="text-gray-700">
-                  {worker.phone}
-                </p>
+  {isUnlocked ? (
+    <p className="text-gray-700">
+      {worker.phone}
+    </p>
+  ) : (
+    <>
+      <p className="text-red-500 font-semibold">
+        🔒 Contact Locked
+      </p>
+
+      <a
+        href={`/payment/worker/${worker.id}`}
+        className="inline-block mt-3 bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-lg font-semibold"
+      >
+        Unlock Contact ₹99
+      </a>
+    </>
+  )}
+</div>
               </div>
 
             </div>
@@ -114,20 +131,38 @@ export default async function WorkerDetails({
             {/* Action Buttons */}
             <div className="mt-8 flex flex-col md:flex-row gap-4">
 
-              <a
-                href={`tel:${worker.phone}`}
-                className="bg-green-500 hover:bg-green-600 text-white text-center px-6 py-3 rounded-lg font-semibold"
-              >
-                📞 Call Worker
-              </a>
+              {isUnlocked ? (
+  <a
+    href={`tel:${worker.phone}`}
+    className="bg-green-500 hover:bg-green-600 text-white text-center px-6 py-3 rounded-lg font-semibold"
+  >
+    📞 Call Worker
+  </a>
+) : (
+  <a
+    href={`/payment/worker/${worker.id}`}
+    className="bg-green-500 hover:bg-green-600 text-white text-center px-6 py-3 rounded-lg font-semibold"
+  >
+    🔓 Unlock Call ₹99
+  </a>
+)}
 
-              <a
-                href={`https://wa.me/91${worker.whatsapp}`}
-                target="_blank"
-                className="bg-orange-500 hover:bg-orange-600 text-white text-center px-6 py-3 rounded-lg font-semibold"
-              >
-                💬 WhatsApp Worker
-              </a>
+  {isUnlocked ? (
+  <a
+    href={`https://wa.me/91${worker.whatsapp}`}
+    target="_blank"
+    className="bg-orange-500 hover:bg-orange-600 text-white text-center px-6 py-3 rounded-lg font-semibold"
+  >
+    💬 WhatsApp Worker
+  </a>
+) : (
+  <a
+    href={`/payment/worker/${worker.id}`}
+    className="bg-orange-500 hover:bg-orange-600 text-white text-center px-6 py-3 rounded-lg font-semibold"
+  >
+    🔓 Unlock WhatsApp ₹99
+  </a>
+)}
 
             </div>
 
