@@ -46,8 +46,8 @@ export default function Navbar() {
   <Image
     src="/logo.png"
     alt="WorkLinkHub Logo"
-    width={42}
-    height={42}
+    width={60}
+    height={60}
     priority
   />
 
