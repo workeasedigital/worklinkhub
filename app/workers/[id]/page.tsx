@@ -1,4 +1,5 @@
 import { supabase } from "../../../lib/supabase";
+import { createSupabaseServerClient } from "../../../lib/supabase-server";
 export const dynamic = "force-dynamic";
 export default async function WorkerDetails({
   params,
@@ -6,20 +7,25 @@ export default async function WorkerDetails({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+const supabaseServer = await createSupabaseServerClient();
+
+const {
+  data: { user },
+} = await supabaseServer.auth.getUser();
 
   const { data: worker, error } = await supabase
     .from("workers")
     .select("*")
     .eq("id", id)
     .single();
+    
     const { data: unlocks } = await supabase
   .from("worker_unlocks")
   .select("*")
-  .eq("worker_id", Number(id));
+  .eq("worker_id", Number(id))
+  .eq("user_email", user?.email);
 
-console.log(unlocks);
-
-const isUnlocked = false;
+const isUnlocked = !!unlocks && unlocks.length > 0;
 
   if (!worker || error) {
     return (
