@@ -1,32 +1,24 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { updateSession } from "./utils/supabase/middleware";
 
-export function middleware(request: NextRequest) {
-    console.log("Middleware running");
+export async function middleware(request: NextRequest) {
+  const response = await updateSession(request);
+
+  // Admin protection
   const isAdmin = request.cookies.get("isAdmin");
 
-  const adminRoutes = [
-    "/admin",
-    "/admin/workers",
-    "/admin/jobs",
-  ];
-
-  const pathname = request.nextUrl.pathname;
-  
   if (
-    adminRoutes.some((route) =>
-      pathname.startsWith(route)
-    ) &&
+    request.nextUrl.pathname.startsWith("/admin") &&
     !isAdmin
   ) {
-    return NextResponse.redirect(
-      new URL("/", request.url)
-    );
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
-  return NextResponse.next();
+  return response;
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico).*)",
+  ],
 };

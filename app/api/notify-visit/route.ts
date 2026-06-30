@@ -5,8 +5,8 @@ async function sendNotification() {
     const response = await fetch("https://ntfy.sh/worklinkhub-admin", {
       method: "POST",
       headers: {
-        Title: "👀 Visitor",
-        Priority: "5",
+        Title: " Visitor",
+        Priority: "high",
       },
       body: "👀 Someone opened WorkLinkHub",
     });

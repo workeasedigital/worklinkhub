@@ -1,5 +1,5 @@
-import { supabase } from "../../../lib/supabase";
-import { createSupabaseServerClient } from "../../../lib/supabase-server";
+import { supabase as publicSupabase } from "../../../lib/supabase";
+import { createClient } from "../../../utils/supabase/server";
 export const dynamic = "force-dynamic";
 export default async function WorkerDetails({
   params,
@@ -7,19 +7,20 @@ export default async function WorkerDetails({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-const supabaseServer = await createSupabaseServerClient();
+const supabase = await createClient();
 
 const {
   data: { user },
-} = await supabaseServer.auth.getUser();
+} = await supabase.auth.getUser();
 
-  const { data: worker, error } = await supabase
+console.log("Logged in user:", user);
+  const { data: worker, error } = await publicSupabase
     .from("workers")
     .select("*")
     .eq("id", id)
     .single();
     
-    const { data: unlocks } = await supabase
+    const { data: unlocks } = await publicSupabase
   .from("worker_unlocks")
   .select("*")
   .eq("worker_id", Number(id))

@@ -44,12 +44,13 @@ export default function Navbar() {
   className="flex items-center gap-3"
 >
   <Image
-    src="/logo.png"
-    alt="WorkLinkHub Logo"
-    width={60}
-    height={60}
-    priority
-  />
+  src="/logo.png"
+  alt="WorkLinkHub Logo"
+  width={70}
+  height={70}
+  className="object-contain"
+  priority
+/>
 
 </Link>
         

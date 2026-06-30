@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "../../lib/supabase";
+import { createClient } from "../../utils/supabase/client";
 import { useRouter } from "next/navigation";
+
+const supabase = createClient();
 
 export default function SignupPage() {
   const router = useRouter();
-
+const supabase = createClient();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
