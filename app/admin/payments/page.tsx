@@ -18,7 +18,7 @@ export default async function PaymentsPage() {
 
   <a
     href="/admin"
-    className="bg-gray-700 hover:bg-gray-800 text-white px-5 py-3 rounded-lg font-semibold"
+    className="bg-red-700 hover:bg-gray-800 text-white px-5 py-3 rounded-lg font-semibold"
   >
     ← Back to Dashboard
   </a>
