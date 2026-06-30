@@ -28,7 +28,11 @@ const [currentUser, setCurrentUser] = useState<any>(null);
     }
 
     setCurrentUser(user);
-    setLoadingUser(false);
+
+setName(user.user_metadata?.full_name || "");
+setEmail(user.email || "");
+
+setLoadingUser(false);
   }
 
   checkUser();
@@ -117,18 +121,15 @@ if (loadingUser) {
         </p>
 
         <input
-          placeholder="Your Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full border rounded-lg p-3 mb-4"
-        />
-
-        <input
-          placeholder="Your Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full border rounded-lg p-3 mb-4"
-        />
+  value={name}
+  readOnly
+  className="w-full border rounded-lg p-3 mb-4 bg-gray-100"
+/>
+<input
+  value={email}
+  readOnly
+  className="w-full border rounded-lg p-3 mb-4 bg-gray-100"
+/>
 
         <input
           placeholder="Enter UTR Number"
