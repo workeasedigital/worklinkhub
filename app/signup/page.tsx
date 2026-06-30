@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { useRouter } from "next/navigation";
 
@@ -9,10 +9,23 @@ export default function SignupPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [fullName, setFullName] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   
+  useEffect(() => {
+  async function checkLoggedIn() {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (user) {
+      router.push("/");
+    }
+  }
+
+  checkLoggedIn();
+}, []);
 async function handleSignup(e: React.FormEvent) {
   e.preventDefault();
 
@@ -20,6 +33,11 @@ async function handleSignup(e: React.FormEvent) {
   setMessage("");
 
   const { data, error } = await supabase.auth.signUp({
+    options: {
+      data: {
+        full_name: fullName,
+      },
+    },
     email,
     password,
   });
@@ -28,10 +46,14 @@ async function handleSignup(e: React.FormEvent) {
   console.log("ERROR:", error);
 
   if (error) {
-    setMessage(error.message);
-  } else {
-    setMessage("Signup successful!");
-  }
+  setMessage(error.message);
+} else {
+  setMessage("Signup successful!");
+
+  setTimeout(() => {
+    router.push("/login");
+  }, 2000);
+}
 
   setLoading(false);
 }
@@ -45,6 +67,14 @@ async function handleSignup(e: React.FormEvent) {
         </h1>
 
         <form onSubmit={handleSignup} className="space-y-4">
+          <input
+  type="text"
+  placeholder="Full Name"
+  value={fullName}
+  onChange={(e) => setFullName(e.target.value)}
+  className="w-full border p-3 rounded-lg"
+  required
+/>
 
           <input
             type="email"
@@ -77,6 +107,17 @@ async function handleSignup(e: React.FormEvent) {
               {message}
             </p>
           )}
+          <div className="text-center mt-5">
+  <p className="text-gray-600">
+    Already have an account?{" "}
+    <a
+      href="/login"
+      className="text-orange-500 font-semibold hover:underline"
+    >
+      Login
+    </a>
+  </p>
+</div>
         </form>
       </div>
     </main>

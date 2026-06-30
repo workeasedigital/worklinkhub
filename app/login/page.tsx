@@ -125,7 +125,17 @@ return (
             </p>
           )}
         </form>
-
+<div className="text-center mt-5">
+  <p className="text-gray-600">
+    Don't have an account?{" "}
+    <a
+      href="/signup"
+      className="text-orange-500 font-semibold hover:underline"
+    >
+      Create Account
+    </a>
+  </p>
+</div>
       </div>
 
     </div>

@@ -12,7 +12,14 @@ export default async function WorkerDetails({
     .select("*")
     .eq("id", id)
     .single();
-    const isUnlocked = false;
+    const { data: unlocks } = await supabase
+  .from("worker_unlocks")
+  .select("*")
+  .eq("worker_id", Number(id));
+
+console.log(unlocks);
+
+const isUnlocked = false;
 
   if (!worker || error) {
     return (

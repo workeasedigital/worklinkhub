@@ -39,7 +39,7 @@ setLoadingUser(false);
 }, []);
 
   async function submitPayment() {
-  if (!name || !email || !utr) {
+  if (!currentUser || !utr) {
     alert("Please fill all fields.");
     return;
   }
@@ -50,13 +50,13 @@ setLoadingUser(false);
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      user_name: name,
-      user_email: email,
-      worker_id: Number(id),
-      amount: 99,
-      utr,
-      payment_type: "Worker",
-    }),
+  user_name: currentUser?.user_metadata?.full_name || name,
+  user_email: currentUser?.email,
+  worker_id: Number(id),
+  amount: 99,
+  utr,
+  payment_type: "Worker",
+}),
   });
 
   const result = await response.json();
