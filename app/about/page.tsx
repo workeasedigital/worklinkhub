@@ -1,4 +1,5 @@
-export default function AboutPage() {
+export default function AboutPage() 
+{
   return (
     <main className="min-h-screen bg-slate-50">
 

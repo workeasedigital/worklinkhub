@@ -1,15 +1,38 @@
 "use client";
 
 import Image from "next/image";
-import { useParams } from "next/navigation";
-import { useState } from "react";
-
+import { useParams, useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { supabase } from "../../../../lib/supabase";
 export default function WorkerPaymentPage() {
   const { id } = useParams();
+  const router = useRouter();
+
+const [loadingUser, setLoadingUser] = useState(true);
+
+const [currentUser, setCurrentUser] = useState<any>(null);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [utr, setUtr] = useState("");
+
+   useEffect(() => {
+  async function checkUser() {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+
+    setCurrentUser(user);
+    setLoadingUser(false);
+  }
+
+  checkUser();
+}, []);
 
   async function submitPayment() {
   if (!name || !email || !utr) {
@@ -45,6 +68,14 @@ export default function WorkerPaymentPage() {
   } else {
     alert(result.error);
   }
+}
+
+if (loadingUser) {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      Loading...
+    </div>
+  );
 }
 
   return (
