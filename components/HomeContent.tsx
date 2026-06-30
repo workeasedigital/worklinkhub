@@ -1,5 +1,5 @@
 "use client";
-
+import { supabase } from "../lib/supabase";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "../context/LanguageContext";
@@ -35,87 +35,79 @@ useEffect(() => {
     method: "POST",
   });
 }, []);
+const [user, setUser] = useState<any>(null);
+
+useEffect(() => {
+  async function loadUser() {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    setUser(user);
+  }
+
+  loadUser();
+
+  const {
+    data: { subscription },
+  } = supabase.auth.onAuthStateChange((event, session) => {
+    setUser(session?.user ?? null);
+  });
+
+  return () => subscription.unsubscribe();
+}, []);
+
+async function handleLogout() {
+  await supabase.auth.signOut();
+  window.location.href = "/";
+}
   return (
     <main className="min-h-screen bg-white text-gray-900">
-     {/* Navbar */}
-<nav className="bg-gray-900 text-white shadow-lg">
-
-  <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-
-    <h1 className="text-2xl font-bold text-orange-500">
-      WorkLinkHub
-    </h1>
-
-    <div className="hidden md:flex items-center gap-6">
-
-      <a href="/" className="hover:text-orange-400 transition">
-        Home
-      </a>
-
-      <a href="/workers" className="hover:text-orange-400 transition">
-        Workers
-      </a>
-
-      <a href="/jobs" className="hover:text-orange-400 transition">
-        Jobs
-      </a>
-
-      <a href="/login" className="hover:text-orange-400 transition">
-        Login
-      </a>
-
-      <a
-        href="/register-worker"
-        className="border border-orange-500 text-orange-400 hover:bg-orange-500 hover:text-white px-4 py-2 rounded-lg font-semibold transition"
-      >
-        Join as Worker
-      </a>
-
-      <a
-        href="/post-job"
-        className="border border-orange-500 text-orange-400 hover:bg-orange-500 hover:text-white px-4 py-2 rounded-lg font-semibold transition"
-      >
-        Post Job
-      </a>
-
-      <LanguageSwitcher />
-
-    </div>
-
-  </div>
-
-</nav>
     {/* Hero */}
       <section className="bg-orange-500 text-white py-24">
         <div className="max-w-6xl mx-auto text-center px-6">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            WorkLinkHub
-          </h1>
 
-          <p className="text-2xl mb-4">
-            Connect Workers. Get Work Done.
-          </p>
+        <h1 className="text-6xl font-bold mb-6">
+          WorkLinkHub
+        </h1>
 
-          <p className="text-lg mb-10">
-            Find trusted local workers or get hired instantly.
-          </p>
+        <p className="text-2xl mb-4">
+          Connect Workers. Get Work Done.
+        </p>
 
-          <div className="flex flex-col md:flex-row justify-center gap-4">
-            <button
-              onClick={() => router.push("/workers")}
-              className="bg-white text-orange-500 px-8 py-3 rounded-lg font-semibold"
-            >
-              Find Workers
-            </button>
+        <p className="text-lg mb-12">
+          Find trusted local workers or get hired instantly.
+        </p>
 
-            <button
-              onClick={() => router.push("/register-worker")}
-              className="bg-black text-white px-8 py-3 rounded-lg font-semibold"
-            >
-              Join as Worker
-            </button>
-          </div>
-        </div>
+        <div className="flex flex-wrap justify-center gap-6">
+
+  <a
+    href="/workers"
+  className="bg-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg"
+  style={{ color: "#ea580c" }}
+  >
+    🔍 Find Workers
+  </a>
+
+  <a
+    href="/register-worker"
+    className="bg-white text-blue-600 border border-blue-200 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-blue-50 hover:scale-105 transition"
+    style={{ color: "#2563eb" }}
+  >
+    👷 Join as Worker
+  </a>
+
+  <a
+    href="/post-job"
+    className="bg-white text-green-600 border border-green-200 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-green-50 hover:scale-105 transition"
+    style={{ color: "#16a34a" }}
+  >
+    📢 Post a Job
+  </a>
+
+</div>
+
+        </div>  
       </section>
 
       {/* Search */}
